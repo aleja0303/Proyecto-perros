@@ -1,0 +1,108 @@
+class Perro:
+    def __init__(self, nombre, raza, edad, puntos):
+        self.nombre = nombre
+        self.raza = raza
+        self.edad = edad
+        self.puntos = puntos
+    
+    def __str__(self):
+        return f"Nombre: {self.nombre}, Raza: {self.raza}, Edad: {self.edad}, Puntos: {self.puntos}"
+
+class ExposicionCanina:
+    def __init__(self):
+        self.perros = []
+    
+    def mostrar_perros(self, orden='nombre'):
+        if orden == 'nombre':
+            perros_ordenados = sorted(self.perros, key=lambda x: x.nombre)
+        elif orden == 'raza':
+            perros_ordenados = sorted(self.perros, key=lambda x: x.raza)
+        elif orden == 'puntos':
+            perros_ordenados = sorted(self.perros, key=lambda x: x.puntos, reverse=True)
+        elif orden == 'edad':
+            perros_ordenados = sorted(self.perros, key=lambda x: x.edad, reverse=True)
+        else:
+            return "Opción de orden no válida."
+        
+        for perro in perros_ordenados:
+            print(perro)
+    
+    def mostrar_informacion_perro(self, nombre_perro):
+        for perro in self.perros:
+            if perro.nombre == nombre_perro:
+                print(perro)
+                return
+        print("Perro no encontrado.")
+    
+    def registrar_perro(self, nombre, raza, edad, puntos):
+        nuevo_perro = Perro(nombre, raza, edad, puntos)
+        self.perros.append(nuevo_perro)
+        print("Perro registrado exitosamente.")
+    
+    def localizar_perro_por_nombre(self, nombre_perro):
+        for perro in self.perros:
+            if perro.nombre == nombre_perro:
+                print("Perro encontrado:")
+                print(perro)
+                return
+        print("Perro no encontrado.")
+    
+    def buscar_ganador(self):
+        if not self.perros:
+            print("No hay perros registrados.")
+            return
+        
+        ganador = max(self.perros, key=lambda x: x.puntos)
+        print("El perro ganador de la exposición es:")
+        print(ganador)
+    
+    def buscar_perro_menor_puntaje(self):
+        if not self.perros:
+            print("No hay perros registrados.")
+            return
+        
+        perro_menor_puntaje = min(self.perros, key=lambda x: x.puntos)
+        print("El perro con el menor puntaje es:")
+        print(perro_menor_puntaje)
+    
+    def buscar_perro_mas_viejo(self):
+        if not self.perros:
+            print("No hay perros registrados.")
+            return
+        
+        perro_mas_viejo = max(self.perros, key=lambda x: x.edad)
+        print("El perro más viejo de todos es:")
+        print(perro_mas_viejo)
+
+
+# Ejemplo de uso:
+exposicion = ExposicionCanina()
+
+# Registrar algunos perros
+exposicion.registrar_perro("Buddy", "Labrador", 5, 90)
+exposicion.registrar_perro("Max", "Golden Retriever", 3, 85)
+exposicion.registrar_perro("Bella", "Poodle", 4, 95)
+
+# Mostrar la lista de perros ordenada por nombre
+print("\nLista de perros ordenada por nombre:")
+exposicion.mostrar_perros('nombre')
+
+# Mostrar la información de un perro específico
+print("\nInformación de un perro específico:")
+exposicion.mostrar_informacion_perro("Max")
+
+# Buscar un perro por su nombre
+print("\nBuscar un perro por su nombre:")
+exposicion.localizar_perro_por_nombre("Buddy")
+
+# Buscar el perro ganador
+print("\nBuscar el perro ganador:")
+exposicion.buscar_ganador()
+
+# Buscar el perro con el menor puntaje
+print("\nBuscar el perro con el menor puntaje:")
+exposicion.buscar_perro_menor_puntaje()
+
+# Buscar el perro más viejo
+print("\nBuscar el perro más viejo:")
+exposicion.buscar_perro_mas_viejo()
